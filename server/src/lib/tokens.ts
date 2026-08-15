@@ -4,15 +4,15 @@ import { Response } from "express";
 
 const ACCESS_TOKEN_TTL = (process.env.JWT_EXPIRES_IN || "15m") as jwt.SignOptions["expiresIn"];
 const REFRESH_TOKEN_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
-const isProd = process.env.NODE_ENV === "production";
+const secureCookies = process.env.COOKIE_SECURE === "true";
 
 export const ACCESS_COOKIE = "access_token";
 export const REFRESH_COOKIE = "refresh_token";
 
 const baseCookieOptions = {
   httpOnly: true,
-  secure: isProd,
-  sameSite: isProd ? ("none" as const) : ("lax" as const),
+  secure: secureCookies,
+  sameSite: secureCookies ? ("none" as const) : ("lax" as const),
 };
 
 export function signAccessToken(userId: string) {
