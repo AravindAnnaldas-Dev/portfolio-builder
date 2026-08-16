@@ -9,5 +9,5 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 export function Container({ as: Tag = "div", className = "", ...rest }: Props) {
-  return <Tag className={`mx-auto w-full max-w-6xl px-6 ${className}`} {...rest} />;
+  return <Tag className={`mx-auto w-full max-w-6xl px-4 sm:px-6 ${className}`} {...rest} />;
 }

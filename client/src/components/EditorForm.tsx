@@ -230,22 +230,27 @@ function SocialListEditor({ items, onChange }: { items: SocialLink[]; onChange: 
     <div className="flex flex-col gap-2">
       <label className="text-xs font-medium text-muted">Social links</label>
       {items.map((item, i) => (
-        <div key={i} className="flex gap-2">
+        <div key={i} className="flex flex-col gap-2 sm:flex-row">
           <input
             value={item.label}
             placeholder="Label"
             onChange={(e) => onChange(items.map((it, idx) => (idx === i ? { ...it, label: e.target.value } : it)))}
-            className="w-28 rounded-md border border-border bg-bg px-2 py-1.5 text-sm text-text outline-none focus:border-accent"
+            className="w-full rounded-md border border-border bg-bg px-2 py-1.5 text-sm text-text outline-none focus:border-accent sm:w-28"
           />
-          <input
-            value={item.url}
-            placeholder="URL"
-            onChange={(e) => onChange(items.map((it, idx) => (idx === i ? { ...it, url: e.target.value } : it)))}
-            className="min-w-0 flex-1 rounded-md border border-border bg-bg px-2 py-1.5 text-sm text-text outline-none focus:border-accent"
-          />
-          <button onClick={() => onChange(items.filter((_, idx) => idx !== i))} className="text-xs text-red-500">
-            Remove
-          </button>
+          <div className="flex min-w-0 flex-1 items-center gap-2">
+            <input
+              value={item.url}
+              placeholder="URL"
+              onChange={(e) => onChange(items.map((it, idx) => (idx === i ? { ...it, url: e.target.value } : it)))}
+              className="min-w-0 flex-1 rounded-md border border-border bg-bg px-2 py-1.5 text-sm text-text outline-none focus:border-accent"
+            />
+            <button
+              onClick={() => onChange(items.filter((_, idx) => idx !== i))}
+              className="shrink-0 text-xs text-red-500"
+            >
+              Remove
+            </button>
+          </div>
         </div>
       ))}
       <Button variant="secondary" onClick={() => onChange([...items, { label: "", url: "" }])}>
@@ -344,7 +349,7 @@ function ExperienceListEditor({ items, onChange }: { items: Experience[]; onChan
                   <div className="flex flex-col gap-2">
                     <FormField label="Role" value={e.role} onChange={(v) => update(i, { role: v })} />
                     <FormField label="Company" value={e.company} onChange={(v) => update(i, { company: v })} />
-                    <div className="flex gap-2">
+                    <div className="flex flex-col gap-2 xs:flex-row">
                       <FormField label="Start" value={e.start} onChange={(v) => update(i, { start: v })} />
                       <FormField label="End" value={e.end} onChange={(v) => update(i, { end: v })} />
                     </div>
@@ -382,7 +387,7 @@ function EducationListEditor({ items, onChange }: { items: Education[]; onChange
                   <div className="flex flex-col gap-2">
                     <FormField label="School" value={e.school} onChange={(v) => update(i, { school: v })} />
                     <FormField label="Degree" value={e.degree} onChange={(v) => update(i, { degree: v })} />
-                    <div className="flex gap-2">
+                    <div className="flex flex-col gap-2 xs:flex-row">
                       <FormField label="Start" value={e.start} onChange={(v) => update(i, { start: v })} />
                       <FormField label="End" value={e.end} onChange={(v) => update(i, { end: v })} />
                     </div>
@@ -448,7 +453,7 @@ function LanguageListEditor({ items, onChange }: { items: Language[]; onChange: 
             <SortableItem key={l.id} id={l.id}>
               {(handle) => (
                 <ItemRow dragHandle={handle} onRemove={() => onChange(items.filter((_, idx) => idx !== i))} removeLabel="Remove">
-                  <div className="flex gap-2">
+                  <div className="flex flex-col gap-2 xs:flex-row">
                     <FormField label="Language" value={l.name} onChange={(v) => update(i, { name: v })} />
                     <FormField label="Proficiency" value={l.proficiency} onChange={(v) => update(i, { proficiency: v })} />
                   </div>

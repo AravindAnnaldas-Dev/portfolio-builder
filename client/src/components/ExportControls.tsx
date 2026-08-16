@@ -6,7 +6,7 @@ import { portfolioApi } from "@/lib/api";
 
 type Status = "idle" | "loading" | "success" | "error";
 
-export function ExportControls({ portfolioId }: { portfolioId: string }) {
+export function ExportControls({ portfolioId, className = "" }: { portfolioId: string; className?: string }) {
   const [zipStatus, setZipStatus] = useState<Status>("idle");
 
   async function exportZip() {
@@ -32,8 +32,8 @@ export function ExportControls({ portfolioId }: { portfolioId: string }) {
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      <Button onClick={exportZip} loading={zipStatus === "loading"}>
+    <div className={`flex items-center gap-3 ${className}`}>
+      <Button onClick={exportZip} loading={zipStatus === "loading"} className="w-full sm:w-auto">
         {zipStatus === "success" ? "Downloaded ✓" : zipStatus === "error" ? "Failed — retry" : "Export as Website (ZIP)"}
       </Button>
     </div>

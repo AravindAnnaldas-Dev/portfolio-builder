@@ -1,9 +1,9 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
 import { authApi } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
+import { useRouteTransition } from "@/lib/route-transition";
 import { Button } from "@/components/Button";
 import Link from "next/link";
 
@@ -14,7 +14,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
-  const router = useRouter();
+  const { navigate } = useRouteTransition();
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -24,7 +24,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
       const result =
         mode === "login" ? await authApi.login(email, password) : await authApi.register(email, password, name);
       login(result.user);
-      router.push("/dashboard");
+      navigate("/dashboard");
     } catch (err: any) {
       setError(err.message || "Something went wrong");
     } finally {
