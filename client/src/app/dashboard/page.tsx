@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { portfolioApi } from "@/lib/api";
 import { emptyContent } from "@/types/portfolio";
@@ -11,10 +10,11 @@ import { PortfolioThumbnail } from "@/components/PortfolioThumbnail";
 import { Button } from "@/components/Button";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { Container } from "@/components/Container";
+import { useRouteTransition } from "@/lib/route-transition";
 
 function DashboardContent() {
   const queryClient = useQueryClient();
-  const router = useRouter();
+  const { navigate } = useRouteTransition();
   const [pendingDelete, setPendingDelete] = useState<{ id: string; title: string } | null>(null);
 
   const { data: portfolios, isLoading } = useQuery({
@@ -25,7 +25,7 @@ function DashboardContent() {
   const createMutation = useMutation({
     mutationFn: () =>
       portfolioApi.create({ title: "Untitled Portfolio", template: "minimal-dev", content: emptyContent() }),
-    onSuccess: (portfolio) => router.push(`/editor/${portfolio.id}`),
+    onSuccess: (portfolio) => navigate(`/editor/${portfolio.id}`),
   });
 
   const duplicateMutation = useMutation({
@@ -85,7 +85,7 @@ function DashboardContent() {
                 key={p.id}
                 className="group rounded-lg border border-border bg-surface p-4 transition-shadow hover:shadow-md"
               >
-                <button onClick={() => router.push(`/editor/${p.id}`)} className="block w-full text-left">
+                <button onClick={() => navigate(`/editor/${p.id}`)} className="block w-full text-left">
                   <PortfolioThumbnail portfolio={p} />
                   <h3 className="mt-3 truncate text-sm font-medium text-text">{p.title}</h3>
                   <p className="text-xs capitalize text-muted">{p.template.replace("-", " ")}</p>

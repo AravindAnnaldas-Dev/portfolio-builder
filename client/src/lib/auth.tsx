@@ -1,8 +1,8 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { authApi } from "./api";
+import { useRouteTransition } from "./route-transition";
 
 interface User {
   id: string;
@@ -27,7 +27,7 @@ const AuthContext = createContext<AuthState>({
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
+  const { navigate } = useRouteTransition();
 
   useEffect(() => {
     // The access/refresh tokens live in httpOnly cookies, invisible to JS —
@@ -46,7 +46,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   function logout() {
     authApi.logout().finally(() => {
       setUser(null);
-      router.push("/login");
+      navigate("/login");
     });
   }
 

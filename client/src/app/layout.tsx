@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/lib/theme";
 import { QueryProvider } from "@/lib/query-provider";
 import { AuthProvider } from "@/lib/auth";
+import { RouteTransitionProvider } from "@/lib/route-transition";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -25,7 +26,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${inter.variable} font-sans antialiased`}>
         <ThemeProvider>
           <QueryProvider>
-            <AuthProvider>{children}</AuthProvider>
+            <RouteTransitionProvider>
+              <AuthProvider>{children}</AuthProvider>
+            </RouteTransitionProvider>
           </QueryProvider>
         </ThemeProvider>
       </body>

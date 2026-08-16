@@ -4,6 +4,14 @@ const config: Config = {
   darkMode: "class",
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
+    screens: {
+      xs: "400px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
+    },
     extend: {
       colors: {
         bg: "var(--bg)",
@@ -20,6 +28,15 @@ const config: Config = {
       borderRadius: {
         lg: "12px",
         md: "8px",
+      },
+      keyframes: {
+        "route-loading": {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(300%)" },
+        },
+      },
+      animation: {
+        "route-loading": "route-loading 0.9s ease-in-out infinite",
       },
     },
   },

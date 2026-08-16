@@ -14,16 +14,16 @@ export function AppHeader() {
 
   return (
     <header className="sticky top-0 z-10 border-b border-border bg-bg/80 backdrop-blur">
-      <Container className="flex items-center justify-between py-4">
-        <Link href="/dashboard" className="flex items-center gap-2 text-sm font-semibold text-text">
-          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-accent text-xs text-white">P</span>
-          Portfolio Builder
+      <Container className="flex items-center justify-between gap-3 py-3 sm:py-4">
+        <Link href="/dashboard" className="flex min-w-0 items-center gap-2 text-sm font-semibold text-text">
+          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-accent text-xs text-white">P</span>
+          <span className="truncate">Portfolio Builder</span>
         </Link>
-        <div className="flex items-center gap-3">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <ThemeToggle />
-          {user && <span className="hidden text-sm text-muted sm:inline">{user.name || user.email}</span>}
+          {user && <span className="hidden max-w-[10rem] truncate text-sm text-muted md:inline">{user.name || user.email}</span>}
           {user && (
-            <Button variant="secondary" onClick={() => setConfirmingLogout(true)}>
+            <Button variant="secondary" className="px-2.5 sm:px-4" onClick={() => setConfirmingLogout(true)}>
               Log out
             </Button>
           )}

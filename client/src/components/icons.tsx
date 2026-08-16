@@ -6,6 +6,22 @@ export function ArrowLeftIcon({ className = "" }: { className?: string }) {
   );
 }
 
+export function ChevronLeftIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className={className} aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 5l-7 7 7 7" />
+    </svg>
+  );
+}
+
+export function ChevronRightIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className={className} aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  );
+}
+
 export function SunIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className={className} aria-hidden="true">
